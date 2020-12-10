@@ -1,0 +1,36 @@
+.btn {
+  border-radius: 4px;
+  height: 100%;
+  border: none;
+  outline: none;
+
+  &-expanded {
+    width: 100%;
+  }
+
+  &-rounded {
+    border-radius: 50%;
+    width: 100%;
+  }
+
+  &-chataja {
+    background-color: $color-chataja-light;
+    color: $color-white;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $color-chataja-dark;
+    }
+  }
+
+  &-send {
+    background-color: $color-send-light;
+    cursor: pointer;
+    
+    &:hover {
+      background-color: $color-send-dark;
+    }
+  }
+}

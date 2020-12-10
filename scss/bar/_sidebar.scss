@@ -1,0 +1,30 @@
+.sidebar {
+  // width: 10%;
+  height: 100%;
+  position: relative;
+
+  &-logo {
+    width: 90%;
+  }
+  
+  &-chat {
+    padding-top: 10%;
+    cursor: pointer;
+    
+    &__image {
+      width: 70%;
+    }
+  }
+  
+  &-logout {
+    position: absolute;
+    display: inline-block;
+    bottom: 0;
+    cursor: pointer;
+    
+    &__image {
+      color: black;
+      max-width: 80%;
+    }
+  }
+}

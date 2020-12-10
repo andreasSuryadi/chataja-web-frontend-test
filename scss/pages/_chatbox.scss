@@ -1,0 +1,178 @@
+.chatbox {
+  width: 100%;
+  z-index: 1;
+
+  &-list {
+    height: 100%;
+    border: 1px solid $color-border;
+    border-radius: 4px;
+
+    &__title {
+      padding-top: 4%;
+      padding-left: 3%;
+
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 21px;
+    }
+
+    &__body {
+      padding-top: 5%;
+      padding-left: 3%;
+
+      &_list {
+        padding-top: 2%;
+        grid-template-columns: 15% 85%;
+        grid-gap: 1%;
+        display: grid;
+        cursor: pointer;
+
+        &-avatar {
+          display: inline-block;
+          overflow: hidden;
+          
+          &--image {
+            width: 85%;
+            height: 50px;
+            border-radius: 50%;
+          }
+        }
+
+        &-text {
+          padding-top: 5%;
+        }
+      }
+    }
+  }
+
+  &-message {
+    // height: 100%;
+    border: 1px solid $color-border;
+    border-radius: 4px;
+
+    &__header {
+      width: 100%;
+      background-color: $color-white;
+      height: 10%;
+
+      grid-template-columns: 7% 93%;
+      grid-gap: 1%;
+      display: grid;
+
+      &-avatar {
+        display: inline-block;
+        overflow: hidden;
+        padding-left: 30%;
+        padding-top: 18%;
+        
+        &--image {
+          width: 100%;
+          height: 40px;
+          border-radius: 50%;
+        }
+      }
+
+      &-text {
+        padding-top: 2.5%;
+      }
+    }
+
+    &__body {
+      background-color: $color-background-message;
+      height: 65%;
+      position: fixed;
+      width: 61.6%;
+      padding-top: 2%;
+      padding-bottom: 2%;
+      overflow-y: auto;
+
+      &_me {
+        word-wrap: break-word;
+        margin-bottom: 2%;
+        margin-left: 63%;
+        height: 25%;
+        width: 35%;
+        background-color: $color-message-me;
+        border-radius: 8px;
+
+        &--message {
+          padding-top: 8%;
+          padding-left: 10%;
+          padding-right: 10%;
+          font-size: 14px;
+          color: $color-white;
+        }
+
+        &--time { 
+          padding-top: 6%;
+          padding-left: 5%;
+          padding-right: 5%;
+          font-size: 13px;
+          text-align: right;
+          color: $color-white;
+        }
+      }
+
+      &_friend {
+        word-wrap: break-word;
+        margin-bottom: 2%;
+        margin-left: 2%;
+        height: 25%;
+        width: 35%;
+        background-color: $color-message-friend;
+        border-radius: 8px;
+
+        &--message {
+          padding-top: 8%;
+          padding-left: 10%;
+          padding-right: 10%;
+          font-size: 14px;
+          color: $color-message-text-friend;
+        }
+
+        &--time { 
+          padding-top: 6%;
+          padding-left: 5%;
+          padding-right: 5%;
+          font-size: 13px;
+          text-align: right;
+          color: $color-message-text-friend;
+        }
+      }
+    }
+
+    &__footer {
+      background-color: $color-white;
+      background: transparent;
+      height: 10%;
+      bottom: 3.5%;
+      width: 61.6%;
+      grid-template-columns: 88% 12%;
+      grid-gap: 1%;
+      display: grid;
+      position: fixed;
+
+      &_input {
+        padding: 1% 2% 1.5% 2%;
+
+        & > input {
+          border-radius: 25px;
+          height: 40px;
+          border: 1px solid $color-border;
+          width: 100%;
+          outline: none;
+          padding-left: 3%;
+        }
+      }
+
+      &_button {
+        padding: 5% 25%;
+
+        &--image {
+          padding-left: 10%;
+          padding-top: 2%;
+        }
+      }
+    }
+  }
+}

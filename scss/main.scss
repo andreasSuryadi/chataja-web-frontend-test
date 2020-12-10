@@ -1,0 +1,22 @@
+// For variables
+@import "variables/variables";
+
+// For Typhography
+@import "typhography/fonts";
+@import "typhography/button";
+@import "typhography/container";
+
+// For sidebar
+@import "bar/sidebar";
+
+// For pages
+@import "pages/auth";
+@import "pages/chatbox";
+
+html, body {
+  background-color: #ebebeb;
+}
+
+* {
+  font-family: Roboto;
+}
