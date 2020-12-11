@@ -38,17 +38,17 @@ const router = new VueRouter({
 });
 
 // router.beforeEach((to, from, next) => {
-//   next({ name: "login" })
-//   // if (
-//   //   to.matched.some(record => record.meta.requiresAuth)
-//   // ) {
-//   //   next({ name: "login" });
-//   // } else if (
-//   //   (to.name == "login")
-//   // ) {
-//   //   next("/");
-//   // } else {
-//   //   next();
+  // next({ name: "login" })
+  // if (
+  //   to.matched.some(record => record.meta.requiresAuth)
+  // ) {
+  //   next({ name: "login" });
+  // } else if (
+  //   (to.name == "login")
+  // ) {
+  //   next("/");
+  // } else {
+  //   next();
 //   // }
 // });
 

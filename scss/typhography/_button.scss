@@ -33,4 +33,24 @@
       background-color: $color-send-dark;
     }
   }
+
+  &-resend {
+    background-color: transparent;
+    color: $color-chataja-light;
+    font-size: 11px;
+    cursor: pointer;
+  }
+
+  &-cancel {
+    background-color: $color-cancel-button-light;
+    color: $color-black;
+
+    &:hover {
+      background-color: $color-cancel-button-dark;
+    }
+  }
+
+  &-notification {
+    width: 20%;
+  }
 }

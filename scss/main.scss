@@ -3,6 +3,8 @@
 
 // For Typhography
 @import "typhography/fonts";
+@import "typhography/notification";
+@import "typhography/alert";
 @import "typhography/button";
 @import "typhography/container";
 
@@ -13,8 +15,9 @@
 @import "pages/auth";
 @import "pages/chatbox";
 
-html, body {
+html, body, #app {
   background-color: #ebebeb;
+  height: 99%;
 }
 
 * {

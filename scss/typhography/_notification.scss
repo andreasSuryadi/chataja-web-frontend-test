@@ -1,0 +1,45 @@
+.notification {
+  display: none;
+  position: fixed;
+  z-index: 2;
+  padding-top: 15%;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+
+  &-header {
+    border-radius: 8px 8px 0 0;
+    background-color: $color-chataja-light;
+    margin: auto;
+    padding: 1%;
+    width: 30%;
+    color: $color-white;
+  }
+
+  &-body {
+    background-color: $color-white;
+    width: 30%;
+    height: 10%;
+    padding-top: 3%;
+    padding-left: 1%;
+    padding-right: 1%;
+    text-align: center;
+    color: $color-notification-text;
+    font-size: 18px;
+    line-height: 20px;
+    margin: auto;
+  }
+
+  &-footer {
+    background-color: $color-white;
+    width: 30%;
+    height: 5%;
+    padding: 1%;
+    text-align: center;
+    border-radius: 0 0 8px 8px;
+    margin: auto;
+  }
+}

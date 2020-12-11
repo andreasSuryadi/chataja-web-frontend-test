@@ -21,6 +21,12 @@
     display: inline-block;
     bottom: 0;
     cursor: pointer;
+
+    &__button {
+      padding: 0;
+      text-align: left;
+      cursor: pointer;
+    }
     
     &__image {
       color: black;

@@ -74,12 +74,11 @@
     
           &::placeholder {
             color: #c4c4c4;
-            padding-left: 10%;
           }
     
           &[type=text] {
             color: $color-border;
-            padding-left: 5%;
+            text-align: center;
           }
         }
       }
@@ -147,7 +146,7 @@
           border-radius: 4px;
     
           &::placeholder {
-            color: #c4c4c4;
+            color: $color-placeholder;
           }
     
           &[type=text] {
@@ -169,13 +168,13 @@
           border-radius: 4px;
     
           &::placeholder {
-            color: #c4c4c4;
+            color: $color-placeholder;
             padding-left: 10%;
           }
     
           &[type=text] {
             color: $color-border;
-            padding-left: 5%;
+            text-align: center;
           }
         }
       }
@@ -186,6 +185,10 @@
         width: 80%;
         height: 10%;
         left: 10%;
+      }
+
+      &-resend {
+        padding-top: 26%;
       }
     }
   }

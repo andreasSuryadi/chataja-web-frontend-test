@@ -1,8 +1,14 @@
 // For color variable
 $color-white: #ffffff;
+$color-black: #000000;
 
 $color-border: #8d8d8d;
 $color-background-message: #eaeaea;
+$color-placeholder: #c4c4c4;
+$color-notification-text: #8c8c8c;
+
+$color-cancel-button-light: #dedede;
+$color-cancel-button-dark: #b9b8b8;
 
 $color-send-light: #007bff;
 $color-send-dark: #054c99;
@@ -13,3 +19,7 @@ $color-chataja-dark: #dd294d;
 $color-message-me: #5894ff;
 $color-message-friend: #f5f5f5;
 $color-message-text-friend: #979797;
+
+$color-message-warning-background: #fdec91;
+$color-message-warning-text: #ee8f00;
+$color-message-otp-background: #007bff;

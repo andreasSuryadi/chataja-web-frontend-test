@@ -7,7 +7,9 @@
         <img class="sidebar-chat__image" @mouseover="hoverChat = true" @mouseleave="hoverChat = false" :src="require(`@/assets/chat-${imageChat}.png`)" alt="Chat" />
       </div>
       <div class="sidebar-logout">
-        <img class="sidebar-logout__image" src="@/assets/logout.png" alt="Chat" />
+        <button class="btn sidebar-logout__button" @click="notificationLogout">
+          <img class="sidebar-logout__image" src="@/assets/logout.png" alt="Chat" />
+        </button>
       </div>
     </div>
 
@@ -46,129 +48,111 @@
 
       <!-- Chatbox message body -->
       <div class="chatbox-message__body">
-        <div class="chatbox-message__body_me">
-          <div class="chatbox-message__body_me--message">
-            Halo Darmaji! Jadi ga besok kita pergi?
+        <div v-for="(message, index) in messageCollection" :key="index">
+          <div class="chatbox-message__body_me" v-if="message.from == currentUser.id">
+            <div class="chatbox-message__body_me--message">
+              {{ message.message }}
+            </div>
+            <div class="chatbox-message__body_me--time">
+              {{ getTimeMessageSend(message.created_at) }}
+            </div>
           </div>
-          <div class="chatbox-message__body_me--time">
-            22.10
-          </div>
-        </div>
-        <div class="chatbox-message__body_friend">
-          <div class="chatbox-message__body_friend--message">
-            Weits, jadi dong Yani! Besok gw jemput ke rumah lo deh
-          </div>
-          <div class="chatbox-message__body_friend--time">
-            22.11
-          </div>
-        </div>
-        <!-- <div class="chatbox-message__body_me">
-          <div class="chatbox-message__body_me--message">
-            Halo Darmaji! dsfsdf ga besok kita pergi?
-          </div>
-          <div class="chatbox-message__body_me--time">
-            22.10
+          <div class="chatbox-message__body_friend" v-else-if="message.from != currentUser.id">
+            <div class="chatbox-message__body_friend--message">
+              {{ message.message }}
+            </div>
+            <div class="chatbox-message__body_friend--time">
+              {{ getTimeMessageSend(message.created_at) }}
+            </div>
           </div>
         </div>
-        <div class="chatbox-message__body_me">
-          <div class="chatbox-message__body_me--message">
-            Halo Darmaji! dsfsdf ga besok kita pergi?
-          </div>
-          <div class="chatbox-message__body_me--time">
-            22.10
-          </div>
-        </div>
-        <div class="chatbox-message__body_me">
-          <div class="chatbox-message__body_me--message">
-            Halo Darmaji! dsfsdf ga besok kita pergi?
-          </div>
-          <div class="chatbox-message__body_me--time">
-            22.10
-          </div>
-        </div>
-        <div class="chatbox-message__body_me">
-          <div class="chatbox-message__body_me--message">
-            Halo Darmaji! dsfsdf ga besok kita pergi?
-          </div>
-          <div class="chatbox-message__body_me--time">
-            22.10
-          </div>
-        </div>
-        <div class="chatbox-message__body_me">
-          <div class="chatbox-message__body_me--message">
-            Halo Darmaji! dsfsdf ga besok kita pergi?
-          </div>
-          <div class="chatbox-message__body_me--time">
-            22.10
-          </div>
-        </div>
-        <div class="chatbox-message__body_me">
-          <div class="chatbox-message__body_me--message">
-            Halo Darmaji! dsfsdf ga besok kita pergi?
-          </div>
-          <div class="chatbox-message__body_me--time">
-            22.10
-          </div>
-        </div>
-        <div class="chatbox-message__body_me">
-          <div class="chatbox-message__body_me--message">
-            Halo Darmaji! dsfsdf ga besok kita pergi?
-          </div>
-          <div class="chatbox-message__body_me--time">
-            22.10
-          </div>
-        </div>
-        <div class="chatbox-message__body_me">
-          <div class="chatbox-message__body_me--message">
-            Halo Darmaji! dsfsdf ga besok kita pergi?
-          </div>
-          <div class="chatbox-message__body_me--time">
-            22.10
-          </div>
-        </div> -->
       </div>
 
       <!-- Chatbox message footer -->
       <div class="chatbox-message__footer">
         <div class="chatbox-message__footer_input">
-          <input type="text" placeholder="Type your message here" v-model="form.message" />
+          <input type="text" placeholder="Type your message here" @keyup.enter="sendMessage()" v-model="form.message" />
         </div>
         <div class="chatbox-message__footer_button">
-          <button type="submit" class="btn btn-send btn-rounded">
+          <button type="submit" class="btn btn-send btn-rounded" @click="sendMessage()">
             <img class="chatbox-message__footer_button--image" src="@/assets/send.png" alt="Send">
           </button>
         </div>
+      </div>
+    </div>
+
+    <div class="notification" :style="!isNotification ? 'display: none' : 'display:block'">
+      <div class="notification-header">
+        Logout
+      </div>
+      <div class="notification-body">
+        Are you sure you want to logout?
+      </div>
+      <div class="notification-footer">
+          <button class="btn btn-notification btn-chataja" @click="logout">Yes</button>
+          &nbsp;
+          <button class="btn btn-notification btn-cancel" @click="cancelLogout()">Cancel</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { db } from '../../firebase';
+
 export default {
   name: "chatbox",
   data() {
     return {
       form: {
-        message: ""
+        message: null
       },
       users: [],
+      currentUser: null,
       imageChat: "",
-      hoverChat: false
+      messageCollection: [],
+      hoverChat: false,
+      isNotification: false
     };
   },
   created() {
+    this.currentUser = JSON.parse(localStorage.getItem("userLogin"))[0]
     this.imageChat = "default"
   },
   mounted() {
     this.fetchData()
+    this.getDataMessage()
   },
   methods: {
     // For fetch user data
     async fetchData() {
-      this.$store.dispatch("getUsers")
+      this.$store.dispatch("getUsers", { id: this.currentUser.id })
         .then((response) => {
-          this.users = response.data
+          this.users = response
         })
+    },
+
+    async getDataMessage() {
+      await db.collection("messages")
+        .orderBy("created_at")
+        .get()
+        .then((querySnapshot) => {
+          let messageData = []
+          querySnapshot.forEach((doc) => {
+            messageData.push({
+              message: doc.data().message,
+              from: doc.data().from,
+              to: doc.data().to,
+              created_at: doc.data().created_at,
+            });
+          });
+
+          this.messageCollection = messageData
+
+        })
+        
+      let message = this.$el.querySelector(".chatbox-message__body");
+      message.scrollTop = message.scrollHeight;
     },
 
     // For change image chat logo
@@ -179,8 +163,57 @@ export default {
         this.imageChat = this.hoverChat == true ? "active" : "default";
       // }
     },
+
+    getTimeMessageSend(time) {
+      let timestamp = new Date(time.toDate().getTime())
+      let hours = timestamp.getHours()
+      let minutes = timestamp.getMinutes()
+
+      if (hours < 10) {
+        hours = '0' + hours
+      }
+
+      if (minutes < 10) {
+        minutes = '0' + minutes
+      }
+
+      return hours + "." + minutes;
+    },
+
+    // For send message
+    async sendMessage() {
+      if (this.form.message != null) {
+        await db.collection("messages")
+          .add({ 
+            message: this.form.message,
+            from: this.currentUser.id,
+            to: this.users[0].id,
+            created_at: new Date()
+          })
+          .then(() => {
+            this.form.message = null
+            this.getDataMessage()
+          })
+      }
+    },
+
+    notificationLogout() {
+      this.isNotification = true
+    },
+
+    cancelLogout() {
+      this.isNotification = false
+    },
+
+    async logout() {
+      await this.$store.dispatch("logout")
+        .then(() => {
+          this.$router.push("login")
+        })
+    }
   },
   watch: {
+    // Hovered image chat
     hoverChat() {
       this.changeImageChat();
     },
@@ -189,7 +222,7 @@ export default {
 </script>
 
 <style lang="scss">
-html, body {
+html, body, #app {
   background-color: #ffffff;
 }
 </style>

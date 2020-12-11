@@ -1,0 +1,26 @@
+.alert {
+  position: fixed;
+  bottom: 3%;
+  width: 19%;
+  border-radius: 4px;
+  
+  &-warning {
+    left: 77%;
+    height: 10%;
+    padding-top: 2%;
+    padding-left: 2%;
+    background-color: $color-message-warning-background;
+    color: $color-message-warning-text;
+  }
+  
+  &-otp {
+    left: 79%;
+    height: 7.5%;
+    padding-top: 2%;
+    // padding-left: 2%;
+    background-color: $color-message-otp-background;
+    color: $color-white;
+    text-align: center;
+    font-weight: bold;
+  }
+}

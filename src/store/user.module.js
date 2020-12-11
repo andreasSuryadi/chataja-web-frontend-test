@@ -17,17 +17,15 @@ const getters = {
 };
 
 const actions = {
-  async getUsers() {
+  async getUsers(context, content) {
     const response = await axios.get(process.env.VUE_APP_USER_URL);
-    return response.data;
-  },
-  // async getUser(context, id) {
-  //   if (JwtService.getToken()) {
-  //     ApiService.setHeader();
-  //     const response = await ApiService.get("api/user/" + id + "/show");
-  //     return response.data;
-  //   }
-  // }
+
+    let userList = response.data.data.filter((data) => {
+      return content.id != data.id
+    })
+
+    return userList;
+  }
 };
 
 // const mutations = {
