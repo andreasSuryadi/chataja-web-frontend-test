@@ -59,9 +59,13 @@ export default {
         })
     },
     checkOtp(otp) {
-      if (otp == this.currentUser.otp) {
-        this.currentUser.otp = 0;
-        this.$router.push("chatbox")
+      if (otp != "" || otp != null) {
+        if (otp == this.currentUser.otp) {
+          this.currentUser.otp = 0;
+          this.$router.push("chatbox")
+        } else {
+          this.messageError = "Failed Signing In. Wrong Passcode. Please resend OTP."
+        }
       } else {
         this.messageError = "Failed Signing In. Wrong Passcode. Please resend OTP."
       }
